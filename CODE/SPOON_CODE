@@ -1,0 +1,54 @@
+#include <MPU6050.h>
+#include <MPU6050_6Axis_MotionApps20.h>
+#include <MPU6050_6Axis_MotionApps612.h>
+#include <MPU6050_9Axis_MotionApps41.h>
+#include <helper_3dmath.h>
+#include <I2Cdev.h>
+#include <Wire.h>
+#include "I2Cdev.h"
+#include "MPU6050.h"
+#include <ESP32Servo.h>
+
+#define SDA_PIN    4
+#define SCL_PIN    5
+#define SERVO_PIN  2
+
+MPU6050 mpu;
+Servo spoonServo;
+
+float angle = 0.0;
+const float dt = 0.01;
+const float alpha = 0.98;
+const float Kp = 1.4;
+const float Kd = 0.08;
+float lastError = 0.0;
+
+void setup() {
+  Wire.begin(SDA_PIN, SCL_PIN);
+  mpu.initialize();
+  while (!mpu.testConnection()) delay(100);
+
+  ESP32PWM::allocateTimer(0);
+  spoonServo.attach(SERVO_PIN, 500, 2500);
+  spoonServo.write(90);
+  delay(1000);
+}
+
+void loop() {
+  int16_t ax, ay, az, gx, gy, gz;
+  mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+
+  float accelAngle = atan2(ay, az) * 180.0 / PI;
+  float gyroRate = gx / 131.0;
+  angle = alpha * (angle + gyroRate * dt) + (1 - alpha) * accelAngle;
+
+  float error = -angle;
+  float derivative = (error - lastError) / dt;
+  float control = Kp * error + Kd * derivative;
+  lastError = error;
+
+  int servoPos = constrain(90 - control, 0, 180);
+  spoonServo.write(servoPos);
+
+  delay(int(dt * 1000));
+}
