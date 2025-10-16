@@ -1,61 +1,53 @@
-Low-Cost Assistive Device for Parkinson's Tremor Stabilization 🥄
 
-Supervisor: Prof. I.A. Palani
 
-This project focuses on the design and development of an ultra-affordable, closed-loop system to actively stabilize hand tremors experienced by individuals with Parkinson's disease. The resulting prototype successfully demonstrates real-time compensation, delivering essential functionality at one of the lowest manufacturing cost points in the market.
+### **Low-Cost Assistive Device for Parkinson’s Tremor Stabilization 🥄**
 
-Project Goal & Key Achievement
+**Supervisor:** *Prof. I. A. Palani*
 
-The core challenge was to develop an active stabilization mechanism under a stringent cost constraint.
+**Overview:**
+This project focuses on the **design and development of an ultra-affordable, closed-loop assistive device** to actively stabilize hand tremors in individuals with Parkinson’s disease. The developed prototype achieves real-time tremor compensation while maintaining one of the **lowest manufacturing costs** in the market.
 
-Goal: To stabilize involuntary hand tremors (Parkinsonian or Essential Tremor).
+---
 
-Key Achievement: Delivered a functional, reliable prototype with an estimated component cost of less than ₹400 (approx. $5 USD), maximizing accessibility for patients in need.
+#### **Project Objective & Key Achievement**
 
-⚙️ Hardware and Methodology
+* **Objective:** Develop an active stabilization mechanism for **involuntary hand tremors** (Parkinsonian or Essential Tremor) under stringent cost constraints.
+* **Key Achievement:** Designed and implemented a **fully functional prototype** with an estimated component cost of **₹400 (≈ $5 USD)**, providing **maximum accessibility** for patients in need.
 
-The system uses common, inexpensive micro-electromechanical components to capture tremor movement and translate the corrections into precise counter-movement.
+---
 
-Core Components
+#### **⚙️ Hardware and Methodology**
 
-Component
+The system utilizes inexpensive **micro-electromechanical components** for motion detection and active counter-movement through a **closed-loop PID control mechanism**.
 
-Function
+| **Component**                | **Function**                                   |
+| ---------------------------- | ---------------------------------------------- |
+| **Arduino Nano**             | Main processing and control unit               |
+| **MPU-6050 Gyroscope**       | Measures angular velocity and tremor magnitude |
+| **SG90 Micro Servo Motor**   | Executes real-time corrective motion           |
+| **Spoon/Utensil Attachment** | Output interface for tremor stabilization      |
 
-Microcontroller
+---
 
-Arduino Nano (Main processing unit)
+#### **Closed-Loop Control (PID Mechanism)**
 
-Sensor
+1. **Sensing:** The MPU-6050 continuously detects the orientation and tremor acceleration.
+2. **Processing:** The Arduino Nano runs a **PID algorithm** that computes corrective movement to maintain a steady position (setpoint ≈ zero tremor).
+3. **Actuation:** The servo motor performs the computed counter-motion to neutralize tremors.
+4. **Stabilization:** The loop repeats continuously, resulting in a stabilized utensil head relative to the ground, effectively canceling out tremors in real time.
 
-MPU-6050 Gyroscope (Measures angular velocity/tremor)
+---
 
-Actuator
+#### **Design for Accessibility and Impact**
 
-SG90 Micro Servo Motor (Applies real-time counter-motion)
+* **Compact Design:** All components (Arduino, Gyroscope, Servo, and wiring) were integrated into a **small, portable housing**.
+* **Cost Optimization:** Achieved the target cost of **₹400** without compromising reliability, enabling **large-scale accessibility**.
+* **Reliability Testing:** Demonstrated consistent stabilization performance under both **simulated and real-world tremor conditions**.
+* **Social Impact:** Offers an affordable solution for daily use by patients with limited access to high-cost medical assistive devices.
 
-Output
+---
 
-Spoon/utensil attachment
+**Outcome:**
+Successfully validated a **low-cost, reliable tremor stabilization prototype**, paving the way for scalable and accessible assistive technologies in healthcare.
 
-Closed-Loop Control Mechanism (PID)
 
-The stabilization relies on a Proportional-Integral-Derivative (PID) Controller implemented within the Arduino Nano.
-
-Sensing: The MPU-6050 Gyroscope continuously detects the orientation and acceleration of the device, generating feedback on the tremor's direction and magnitude.
-
-Processing (PID): The Arduino Nano runs the PID algorithm, which calculates the necessary corrective movement required to bring the tremor back to the desired setpoint (zero movement).
-
-Actuation: The Arduino sends a signal to the Servo Motor, which executes the calculated movement in the opposite direction of the detected tremor.
-
-Stabilization: This continuous cycle of sensing, compensating, and moving results in the stabilization of the utensil head relative to the ground, effectively cancelling the tremor.
-
-Design for Accessibility and Impact
-
-The entire circuit (Arduino Nano, Gyroscope, and wires) was compacted into a small, portable housing, directly connected to the servo mechanism holding the utensil.
-
-Cost Optimization: Components were selected specifically to meet the $400$ Rs goal without sacrificing functional reliability, making the technology highly scalable and accessible.
-
-Reliability: The prototype successfully demonstrated effective stabilization against simulated and real-world tremors, making it suitable for practical daily use.
-
-Supervision: The project was completed under the expert guidance of Prof. I.A. Palani.
